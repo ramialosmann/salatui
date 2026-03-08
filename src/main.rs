@@ -3,6 +3,8 @@ mod cli;
 mod config;
 mod digits;
 mod prayer;
+mod tui;
+mod ui;
 
 use clap::Parser;
 
@@ -32,7 +34,16 @@ fn main() -> anyhow::Result<()> {
     let method = prayer::parse_method(&merged.calculation.method)?;
     let madhab = prayer::parse_madhab(&merged.calculation.madhab)?;
     let prayers = prayer::calculate_prayers(lat, lon, method, madhab)?;
-    prayer::print_prayers(&prayers, &merged.display.time_format);
+
+    let app = app::App::new(
+        prayers,
+        merged.display.time_format.clone(),
+        lat,
+        lon,
+        merged.calculation.method.clone(),
+        merged.calculation.madhab.clone(),
+    );
+    tui::run(app)?;
 
     Ok(())
 }
