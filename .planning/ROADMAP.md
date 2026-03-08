@@ -58,7 +58,7 @@ Plans:
   2. App triggers terminal bell/flash when a prayer time arrives
   3. User can configure per-prayer pre-alert minutes in config, and receives a notification X minutes before each prayer
   4. Notifications are not duplicated (each prayer triggers at most one notification per day)
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
 - [ ] 03-01-PLAN.md — Notification config (NotificationConfig struct, per-prayer pre-alert overrides, default config template) and notification engine (notify-send, bell, dedup tracker, check logic)
@@ -73,4 +73,4 @@ Phases execute in numeric order: 1 -> 2 -> 3
 |-------|----------------|--------|-----------|
 | 1. Prayer Engine | 2/2 | Complete | 2026-03-08 |
 | 2. Clock Display | 1/2 | In Progress|  |
-| 3. Notifications | 0/2 | Not started | - |
+| 3. Notifications | 1/2 | In Progress|  |

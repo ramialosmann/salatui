@@ -4,13 +4,13 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Phase 3 context gathered
-last_updated: "2026-03-08T22:54:45.739Z"
+last_updated: "2026-03-08T23:11:03.748Z"
 last_activity: 2026-03-09 -- Completed 02-02 (TUI Rendering & Event Loop)
 progress:
   total_phases: 3
   completed_phases: 2
-  total_plans: 4
-  completed_plans: 4
+  total_plans: 6
+  completed_plans: 5
   percent: 75
 ---
 
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-08)
 
 **Core value:** Always show the user exactly how long until the next prayer -- at a glance, from across the room.
-**Current focus:** Phase 2: Clock Display
+**Current focus:** Phase 3: Notifications
 
 ## Current Position
 
-Phase: 2 of 3 (Clock Display)
-Plan: 2 of 2 in current phase (all complete)
-Status: Executing — awaiting verification
-Last activity: 2026-03-09 -- Completed 02-02 (TUI Rendering & Event Loop)
+Phase: 3 of 3 (Notifications)
+Plan: 1 of 2 in current phase (1 complete)
+Status: Executing
+Last activity: 2026-03-09 -- Completed 03-01 (Notification Config & Engine)
 
-Progress: [████████░░] 75%
+Progress: [████████░░] 83%
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Progress: [████████░░] 75%
 | Phase 01-prayer-engine P02 | 4min | 2 tasks | 2 files |
 | Phase 02-clock-display P01 | 3min | 2 tasks | 5 files |
 | Phase 02-clock-display P02 | 8min | 3 tasks | 4 files |
+| Phase 03-notifications P01 | 2min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,9 @@ Recent decisions affecting current work:
 - [Phase 02-clock-display]: tomorrow_fajr cached eagerly in App struct for post-Isha countdown
 - [Phase 02-clock-display]: Countdown renders directly below clock digits, not screen bottom
 - [Phase 02-clock-display]: hijri_date month_name_en() returns Gregorian month — manual Hijri month map needed
+- [Phase 03-notifications]: Sunrise at-time notifications skipped by default unless pre_alert.sunrise explicitly set
+- [Phase 03-notifications]: Notification dedup keys use lowercase prayer + _at/_pre suffix
+- [Phase 03-notifications]: At-time detection window is 60 seconds
 
 ### Pending Todos
 
@@ -85,6 +89,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-08T22:54:45.736Z
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-notifications/03-CONTEXT.md
+Last session: 2026-03-08T23:10:19Z
+Stopped at: Completed 03-01-PLAN.md
+Resume file: .planning/phases/03-notifications/03-01-SUMMARY.md

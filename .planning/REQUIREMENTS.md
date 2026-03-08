@@ -27,13 +27,13 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **CONF-01**: App reads settings from ~/.config/tui-adhan/config.toml
 - [x] **CONF-02**: User can override config values via CLI flags (--lat, --lon, --method, etc.)
 - [x] **CONF-03**: User can set Asr madhab in config
-- [ ] **CONF-04**: User can configure per-prayer pre-alert minutes in config
+- [x] **CONF-04**: User can configure per-prayer pre-alert minutes in config
 
 ### Notifications
 
-- [ ] **NOTF-01**: App sends desktop notification (notify-send) when a prayer time arrives
-- [ ] **NOTF-02**: App triggers terminal bell/flash when a prayer time arrives
-- [ ] **NOTF-03**: App sends pre-alert notification X minutes before each prayer (configurable per-prayer)
+- [x] **NOTF-01**: App sends desktop notification (notify-send) when a prayer time arrives
+- [x] **NOTF-02**: App triggers terminal bell/flash when a prayer time arrives
+- [x] **NOTF-03**: App sends pre-alert notification X minutes before each prayer (configurable per-prayer)
 
 ## v2 Requirements
 
@@ -78,10 +78,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DISP-03 | Phase 2 | Complete |
 | DISP-04 | Phase 2 | Pending |
 | DISP-05 | Phase 2 | Complete |
-| NOTF-01 | Phase 3 | Pending |
-| NOTF-02 | Phase 3 | Pending |
-| NOTF-03 | Phase 3 | Pending |
-| CONF-04 | Phase 3 | Pending |
+| NOTF-01 | Phase 3 | Complete |
+| NOTF-02 | Phase 3 | Complete |
+| NOTF-03 | Phase 3 | Complete |
+| CONF-04 | Phase 3 | Complete |
 
 **Coverage:**
 - v1 requirements: 16 total
