@@ -43,11 +43,11 @@ Plans:
   3. App displays today's Hijri date on screen
   4. User can toggle a full schedule view showing all 6 prayer times for today
   5. After Isha, the countdown correctly targets tomorrow's Fajr (midnight rollover works)
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md — Core data layer: ASCII digit font, app state, next-prayer logic with midnight rollover, Hijri/countdown formatting
+- [ ] 02-02-PLAN.md — TUI rendering layer: ratatui UI, event loop, main.rs wiring, visual verification
 
 ### Phase 3: Notifications
 **Goal**: User never misses a prayer time, even when the terminal is not in focus
@@ -70,6 +70,6 @@ Phases execute in numeric order: 1 -> 2 -> 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Prayer Engine | 0/2 | Planning complete | - |
-| 2. Clock Display | 0/? | Not started | - |
+| 1. Prayer Engine | 2/2 | Complete | 2026-03-08 |
+| 2. Clock Display | 0/2 | Planning complete | - |
 | 3. Notifications | 0/? | Not started | - |
