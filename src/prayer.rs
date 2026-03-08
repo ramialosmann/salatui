@@ -40,14 +40,15 @@ pub fn parse_madhab(s: &str) -> anyhow::Result<Madhab> {
     }
 }
 
-pub fn calculate_prayers(
+/// Calculate prayer times for a specific date.
+pub fn calculate_prayers_for_date(
     lat: f64,
     lon: f64,
     method: Method,
     madhab: Madhab,
+    date: chrono::NaiveDate,
 ) -> anyhow::Result<PrayerResult> {
     let coords = Coordinates::new(lat, lon);
-    let date = chrono::Local::now().date_naive();
     // Configuration::with() returns Parameters with MiddleOfTheNight high-latitude rule
     // by default. This safely prevents NaN/panic at all latitudes.
     // Note: HighLatitudeRule::recommended() would use SeventhOfTheNight for lat > 48,
@@ -70,6 +71,17 @@ pub fn calculate_prayers(
         maghrib: prayers.time(Prayer::Maghrib).with_timezone(&chrono::Local),
         isha: prayers.time(Prayer::Isha).with_timezone(&chrono::Local),
     })
+}
+
+/// Calculate prayer times for today.
+pub fn calculate_prayers(
+    lat: f64,
+    lon: f64,
+    method: Method,
+    madhab: Madhab,
+) -> anyhow::Result<PrayerResult> {
+    let date = chrono::Local::now().date_naive();
+    calculate_prayers_for_date(lat, lon, method, madhab, date)
 }
 
 pub fn print_prayers(prayers: &PrayerResult, time_format: &str) {
@@ -180,5 +192,26 @@ mod tests {
     #[test]
     fn test_parse_madhab_invalid() {
         assert!(parse_madhab("maliki").is_err());
+    }
+
+    #[test]
+    fn test_calculate_prayers_for_date() {
+        let method = parse_method("mwl").unwrap();
+        let madhab = parse_madhab("shafi").unwrap();
+        let date = chrono::NaiveDate::from_ymd_opt(2026, 3, 9).unwrap();
+        let result = calculate_prayers_for_date(21.4225, 39.8262, method, madhab, date);
+        assert!(
+            result.is_ok(),
+            "calculate_prayers_for_date failed: {:?}",
+            result.err()
+        );
+
+        let prayers = result.unwrap();
+        // Verify chronological order
+        assert!(prayers.fajr < prayers.sunrise);
+        assert!(prayers.sunrise < prayers.dhuhr);
+        assert!(prayers.dhuhr < prayers.asr);
+        assert!(prayers.asr < prayers.maghrib);
+        assert!(prayers.maghrib < prayers.isha);
     }
 }

@@ -1,5 +1,6 @@
 mod cli;
 mod config;
+mod digits;
 mod prayer;
 
 use clap::Parser;
