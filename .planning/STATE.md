@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-08T22:21:57.966Z"
-last_activity: 2026-03-09 -- Completed 02-01 (Clock Data Layer)
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-03-09T00:33:00.000Z"
+last_activity: 2026-03-09 -- Completed 02-02 (TUI Rendering & Event Loop)
 progress:
   total_phases: 3
   completed_phases: 1
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-03-08)
 ## Current Position
 
 Phase: 2 of 3 (Clock Display)
-Plan: 1 of 2 in current phase
-Status: Executing
-Last activity: 2026-03-09 -- Completed 02-01 (Clock Data Layer)
+Plan: 2 of 2 in current phase (all complete)
+Status: Executing — awaiting verification
+Last activity: 2026-03-09 -- Completed 02-02 (TUI Rendering & Event Loop)
 
 Progress: [████████░░] 75%
 
@@ -53,6 +53,7 @@ Progress: [████████░░] 75%
 | Phase 01-prayer-engine P01 | 2min | 2 tasks | 5 files |
 | Phase 01-prayer-engine P02 | 4min | 2 tasks | 2 files |
 | Phase 02-clock-display P01 | 3min | 2 tasks | 5 files |
+| Phase 02-clock-display P02 | 8min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,8 @@ Recent decisions affecting current work:
 - [Phase 01-prayer-engine]: MiddleOfTheNight high-latitude rule as default (HighLatitudeRule not publicly re-exported by salah crate)
 - [Phase 02-clock-display]: hijri_date from_gr takes usize params (research suggested u16/u8)
 - [Phase 02-clock-display]: tomorrow_fajr cached eagerly in App struct for post-Isha countdown
+- [Phase 02-clock-display]: Countdown renders directly below clock digits, not screen bottom
+- [Phase 02-clock-display]: hijri_date month_name_en() returns Gregorian month — manual Hijri month map needed
 
 ### Pending Todos
 
