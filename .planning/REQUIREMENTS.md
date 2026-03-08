@@ -24,9 +24,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Configuration
 
-- [ ] **CONF-01**: App reads settings from ~/.config/tui-adhan/config.toml
-- [ ] **CONF-02**: User can override config values via CLI flags (--lat, --lon, --method, etc.)
-- [ ] **CONF-03**: User can set Asr madhab in config
+- [x] **CONF-01**: App reads settings from ~/.config/tui-adhan/config.toml
+- [x] **CONF-02**: User can override config values via CLI flags (--lat, --lon, --method, etc.)
+- [x] **CONF-03**: User can set Asr madhab in config
 - [ ] **CONF-04**: User can configure per-prayer pre-alert minutes in config
 
 ### Notifications
@@ -70,9 +70,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CALC-02 | Phase 1 | Pending |
 | CALC-03 | Phase 1 | Pending |
 | CALC-04 | Phase 1 | Pending |
-| CONF-01 | Phase 1 | Pending |
-| CONF-02 | Phase 1 | Pending |
-| CONF-03 | Phase 1 | Pending |
+| CONF-01 | Phase 1 | Complete |
+| CONF-02 | Phase 1 | Complete |
+| CONF-03 | Phase 1 | Complete |
 | DISP-01 | Phase 2 | Pending |
 | DISP-02 | Phase 2 | Pending |
 | DISP-03 | Phase 2 | Pending |
