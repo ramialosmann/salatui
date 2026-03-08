@@ -27,12 +27,10 @@ fn main() -> anyhow::Result<()> {
         }
     };
 
-    // Placeholder until prayer calculation is implemented in Plan 02
-    println!(
-        "tui-adhan: coordinates set to ({}, {}), method={}, madhab={}",
-        lat, lon, merged.calculation.method, merged.calculation.madhab
-    );
-    println!("Prayer calculation will be implemented in the next plan.");
+    let method = prayer::parse_method(&merged.calculation.method)?;
+    let madhab = prayer::parse_madhab(&merged.calculation.madhab)?;
+    let prayers = prayer::calculate_prayers(lat, lon, method, madhab)?;
+    prayer::print_prayers(&prayers, &merged.display.time_format);
 
     Ok(())
 }
