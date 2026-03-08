@@ -180,4 +180,4 @@ tui-adhan is built on:
 
 ## License
 
-MIT
+TBD
