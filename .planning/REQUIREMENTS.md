@@ -16,11 +16,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Display
 
-- [ ] **DISP-01**: App shows current time as big ASCII art digits (tty-clock style)
-- [ ] **DISP-02**: App shows countdown timer to next prayer with prayer name
-- [ ] **DISP-03**: App shows Hijri (Islamic calendar) date
+- [x] **DISP-01**: App shows current time as big ASCII art digits (tty-clock style)
+- [x] **DISP-02**: App shows countdown timer to next prayer with prayer name
+- [x] **DISP-03**: App shows Hijri (Islamic calendar) date
 - [ ] **DISP-04**: User can toggle full schedule view showing all 6 prayer times for today
-- [ ] **DISP-05**: App updates display every second
+- [x] **DISP-05**: App updates display every second
 
 ### Configuration
 
@@ -73,11 +73,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CONF-01 | Phase 1 | Complete |
 | CONF-02 | Phase 1 | Complete |
 | CONF-03 | Phase 1 | Complete |
-| DISP-01 | Phase 2 | Pending |
-| DISP-02 | Phase 2 | Pending |
-| DISP-03 | Phase 2 | Pending |
+| DISP-01 | Phase 2 | Complete |
+| DISP-02 | Phase 2 | Complete |
+| DISP-03 | Phase 2 | Complete |
 | DISP-04 | Phase 2 | Pending |
-| DISP-05 | Phase 2 | Pending |
+| DISP-05 | Phase 2 | Complete |
 | NOTF-01 | Phase 3 | Pending |
 | NOTF-02 | Phase 3 | Pending |
 | NOTF-03 | Phase 3 | Pending |

@@ -43,7 +43,7 @@ Plans:
   3. App displays today's Hijri date on screen
   4. User can toggle a full schedule view showing all 6 prayer times for today
   5. After Isha, the countdown correctly targets tomorrow's Fajr (midnight rollover works)
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
 - [ ] 02-01-PLAN.md — Core data layer: ASCII digit font, app state, next-prayer logic with midnight rollover, Hijri/countdown formatting
@@ -71,5 +71,5 @@ Phases execute in numeric order: 1 -> 2 -> 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Prayer Engine | 2/2 | Complete | 2026-03-08 |
-| 2. Clock Display | 0/2 | Planning complete | - |
+| 2. Clock Display | 1/2 | In Progress|  |
 | 3. Notifications | 0/? | Not started | - |
