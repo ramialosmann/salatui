@@ -12,6 +12,8 @@ pub struct AppConfig {
     pub calculation: CalculationConfig,
     #[serde(default)]
     pub display: DisplayConfig,
+    #[serde(default)]
+    pub notifications: NotificationConfig,
 }
 
 impl Default for AppConfig {
@@ -55,6 +57,64 @@ impl Default for DisplayConfig {
             time_format: default_time_format(),
         }
     }
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct NotificationConfig {
+    #[serde(default = "default_true")]
+    pub desktop: bool,
+    #[serde(default = "default_true")]
+    pub bell: bool,
+    #[serde(default = "default_pre_alert_minutes")]
+    pub pre_alert_minutes: u32,
+    #[serde(default)]
+    pub pre_alert: PreAlertConfig,
+}
+
+impl Default for NotificationConfig {
+    fn default() -> Self {
+        Self {
+            desktop: default_true(),
+            bell: default_true(),
+            pre_alert_minutes: default_pre_alert_minutes(),
+            pre_alert: PreAlertConfig::default(),
+        }
+    }
+}
+
+#[derive(Debug, Deserialize, Serialize, Default)]
+pub struct PreAlertConfig {
+    pub fajr: Option<u32>,
+    pub sunrise: Option<u32>,
+    pub dhuhr: Option<u32>,
+    pub asr: Option<u32>,
+    pub maghrib: Option<u32>,
+    pub isha: Option<u32>,
+}
+
+impl PreAlertConfig {
+    /// Returns the pre-alert minutes for a given prayer name.
+    /// Sunrise defaults to 0 (skip) unless explicitly set.
+    /// All other prayers fall back to the global default.
+    pub fn get_minutes(&self, prayer_name: &str, global_default: u32) -> u32 {
+        match prayer_name {
+            "Fajr" => self.fajr.unwrap_or(global_default),
+            "Sunrise" => self.sunrise.unwrap_or(0),
+            "Dhuhr" => self.dhuhr.unwrap_or(global_default),
+            "Asr" => self.asr.unwrap_or(global_default),
+            "Maghrib" => self.maghrib.unwrap_or(global_default),
+            "Isha" => self.isha.unwrap_or(global_default),
+            _ => global_default,
+        }
+    }
+}
+
+fn default_true() -> bool {
+    true
+}
+
+fn default_pre_alert_minutes() -> u32 {
+    15
 }
 
 fn default_method() -> String {
@@ -107,6 +167,27 @@ madhab = "shafi"
 [display]
 # Time format: "24h" or "12h"
 time_format = "24h"
+
+[notifications]
+# Enable desktop notifications via notify-send
+desktop = true
+
+# Enable terminal bell (BEL character) at prayer time
+bell = true
+
+# Minutes before prayer time to send a pre-alert notification
+pre_alert_minutes = 15
+
+# Per-prayer pre-alert overrides (optional)
+# Set to 0 to disable pre-alert for a specific prayer
+# Sunrise is skipped by default (set a value to enable)
+# [notifications.pre_alert]
+# fajr = 20
+# sunrise = 0
+# dhuhr = 15
+# asr = 15
+# maghrib = 15
+# isha = 15
 "#;
 
     if let Some(parent) = path.parent() {
@@ -223,5 +304,79 @@ madhab = "hanafi"
 "#;
         let config: AppConfig = toml::from_str(toml_str).unwrap();
         assert_eq!(config.calculation.madhab, "hanafi");
+    }
+
+    #[test]
+    fn test_notification_defaults() {
+        let config: NotificationConfig = toml::from_str("").unwrap();
+        assert_eq!(config.desktop, true);
+        assert_eq!(config.bell, true);
+        assert_eq!(config.pre_alert_minutes, 15);
+    }
+
+    #[test]
+    fn test_per_prayer_pre_alert_overrides() {
+        let toml_str = r#"
+[pre_alert]
+fajr = 20
+sunrise = 0
+"#;
+        let config: NotificationConfig = toml::from_str(toml_str).unwrap();
+        assert_eq!(config.pre_alert.get_minutes("Fajr", config.pre_alert_minutes), 20);
+        assert_eq!(config.pre_alert.get_minutes("Sunrise", config.pre_alert_minutes), 0);
+        assert_eq!(config.pre_alert.get_minutes("Dhuhr", config.pre_alert_minutes), 15);
+    }
+
+    #[test]
+    fn test_missing_notifications_section_uses_defaults() {
+        let toml_str = r#"
+[location]
+lat = 21.0
+lon = 39.0
+"#;
+        let config: AppConfig = toml::from_str(toml_str).unwrap();
+        assert_eq!(config.notifications.desktop, true);
+        assert_eq!(config.notifications.bell, true);
+        assert_eq!(config.notifications.pre_alert_minutes, 15);
+    }
+
+    #[test]
+    fn test_appconfig_with_notifications_section() {
+        let toml_str = r#"
+[location]
+lat = 21.0
+lon = 39.0
+
+[notifications]
+desktop = true
+bell = false
+pre_alert_minutes = 10
+
+[notifications.pre_alert]
+fajr = 20
+"#;
+        let config: AppConfig = toml::from_str(toml_str).unwrap();
+        assert_eq!(config.notifications.desktop, true);
+        assert_eq!(config.notifications.bell, false);
+        assert_eq!(config.notifications.pre_alert_minutes, 10);
+        assert_eq!(config.notifications.pre_alert.fajr, Some(20));
+    }
+
+    #[test]
+    fn test_default_config_contains_notifications_section() {
+        let dir = std::env::temp_dir().join("tui-adhan-test-notif");
+        let path = dir.join("config.toml");
+        generate_default_config(&path).unwrap();
+        let content = std::fs::read_to_string(&path).unwrap();
+        assert!(content.contains("[notifications]"), "default config should contain [notifications] section");
+        assert!(content.contains("pre_alert_minutes"), "default config should mention pre_alert_minutes");
+        std::fs::remove_dir_all(&dir).ok();
+    }
+
+    #[test]
+    fn test_sunrise_defaults_to_zero_pre_alert() {
+        let config: PreAlertConfig = Default::default();
+        // Sunrise defaults to 0 (skip) unless explicitly set
+        assert_eq!(config.get_minutes("Sunrise", 15), 0);
     }
 }
