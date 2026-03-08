@@ -114,7 +114,22 @@ impl App {
 
         match hd {
             Ok(hd) => {
-                let hijri = format!("{} {} {} AH", hd.day(), hd.month_name_en(), hd.year());
+                let hijri_month = match hd.month() {
+                    1 => "Muharram",
+                    2 => "Safar",
+                    3 => "Rabi al-Awwal",
+                    4 => "Rabi al-Thani",
+                    5 => "Jumada al-Ula",
+                    6 => "Jumada al-Thani",
+                    7 => "Rajab",
+                    8 => "Sha'ban",
+                    9 => "Ramadan",
+                    10 => "Shawwal",
+                    11 => "Dhul Qi'dah",
+                    12 => "Dhul Hijjah",
+                    _ => "Unknown",
+                };
+                let hijri = format!("{} {} {} AH", hd.day(), hijri_month, hd.year());
                 let greg = now.format("%-d %b %Y").to_string();
                 format!("{} \u{00B7} {}", hijri, greg)
             }
