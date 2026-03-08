@@ -1,5 +1,7 @@
 use chrono::{Datelike, Local};
 
+use crate::config::NotificationConfig;
+use crate::notification::{self, NotificationTracker};
 use crate::prayer::{self, PrayerResult};
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -15,6 +17,9 @@ pub struct App {
     pub tomorrow_fajr: Option<chrono::DateTime<Local>>,
     pub time_format: String,
     pub prayer_date: chrono::NaiveDate,
+    pub notification_tracker: NotificationTracker,
+    pub notification_config: NotificationConfig,
+    pub prayer_time_message: Option<(String, chrono::DateTime<Local>)>,
     lat: f64,
     lon: f64,
     method_str: String,
@@ -29,6 +34,7 @@ impl App {
         lon: f64,
         method_str: String,
         madhab_str: String,
+        notification_config: NotificationConfig,
     ) -> Self {
         let prayer_date = Local::now().date_naive();
         let tomorrow_fajr = Self::compute_tomorrow_fajr(lat, lon, &method_str, &madhab_str, prayer_date);
@@ -40,6 +46,9 @@ impl App {
             tomorrow_fajr,
             time_format,
             prayer_date,
+            notification_tracker: NotificationTracker::new(),
+            notification_config,
+            prayer_time_message: None,
             lat,
             lon,
             method_str,
@@ -85,7 +94,18 @@ impl App {
     }
 
     /// Formats countdown as "PrayerName in H:MM:SS".
-    pub fn format_countdown(&self) -> String {
+    /// Shows "PrayerName \u{2014} Prayer time!" for 1 minute when prayer arrives.
+    pub fn format_countdown(&mut self) -> String {
+        // Check if we have an active "Prayer time!" message
+        if let Some((ref name, started)) = self.prayer_time_message {
+            let elapsed = Local::now() - started;
+            if elapsed < chrono::Duration::seconds(60) {
+                return format!("{} \u{2014} Prayer time!", name);
+            } else {
+                self.prayer_time_message = None;
+            }
+        }
+
         match self.next_prayer() {
             Some((name, time)) => {
                 let now = Local::now();
@@ -148,7 +168,8 @@ impl App {
         };
     }
 
-    /// Called every tick -- recalculates prayers if the date has changed (midnight crossing).
+    /// Called every tick -- recalculates prayers if the date has changed (midnight crossing),
+    /// and checks/fires notifications.
     pub fn tick(&mut self) {
         let today = Local::now().date_naive();
         if today != self.prayer_date {
@@ -163,8 +184,27 @@ impl App {
                     self.prayer_date = today;
                     self.tomorrow_fajr =
                         Self::compute_tomorrow_fajr(self.lat, self.lon, &self.method_str, &self.madhab_str, today);
+                    self.notification_tracker.reset();
                 }
             }
+        }
+
+        // Check and fire notifications
+        let now = Local::now();
+        let prayer_list = self.prayer_list();
+        let actions = notification::check_notifications(
+            &prayer_list,
+            &self.notification_config,
+            &self.notification_tracker,
+            now,
+            &self.time_format,
+        );
+        for action in &actions {
+            // Set prayer_time_message for AtTime actions
+            if let notification::NotificationAction::AtTime { prayer, .. } = action {
+                self.prayer_time_message = Some((prayer.clone(), now));
+            }
+            notification::execute_action(action, &self.notification_config, &mut self.notification_tracker);
         }
     }
 
@@ -220,6 +260,9 @@ mod tests {
             tomorrow_fajr: Some(Local::now() + Duration::hours(10)),
             time_format: "24h".to_string(),
             prayer_date: Local::now().date_naive(),
+            notification_tracker: NotificationTracker::new(),
+            notification_config: NotificationConfig::default(),
+            prayer_time_message: None,
             lat: 21.4225,
             lon: 39.8262,
             method_str: "mwl".to_string(),
@@ -282,7 +325,7 @@ mod tests {
     fn test_countdown_format() {
         let now = Local::now();
         let prayers = make_prayers_relative(now);
-        let app = make_test_app(prayers);
+        let mut app = make_test_app(prayers);
 
         let countdown = app.format_countdown();
         // Should match "PrayerName in H:MM:SS" pattern

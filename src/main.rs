@@ -36,6 +36,12 @@ fn main() -> anyhow::Result<()> {
     let madhab = prayer::parse_madhab(&merged.calculation.madhab)?;
     let prayers = prayer::calculate_prayers(lat, lon, method, madhab)?;
 
+    let mut notification_config = merged.notifications;
+    if notification_config.desktop && !notification::check_notify_send_available() {
+        eprintln!("Warning: notify-send not found. Desktop notifications disabled.");
+        notification_config.desktop = false;
+    }
+
     let app = app::App::new(
         prayers,
         merged.display.time_format.clone(),
@@ -43,6 +49,7 @@ fn main() -> anyhow::Result<()> {
         lon,
         merged.calculation.method.clone(),
         merged.calculation.madhab.clone(),
+        notification_config,
     );
     tui::run(app)?;
 

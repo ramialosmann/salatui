@@ -6,7 +6,7 @@ use crate::app::{App, View};
 use crate::digits::{self, DIGIT_HEIGHT, DIGIT_WIDTH};
 
 /// Main draw function dispatching to date line and main content.
-pub fn draw(frame: &mut Frame, app: &App) {
+pub fn draw(frame: &mut Frame, app: &mut App) {
     let chunks = Layout::default()
         .direction(Direction::Vertical)
         .constraints([
@@ -30,7 +30,7 @@ fn draw_date_line(frame: &mut Frame, area: Rect) {
 }
 
 /// Renders large ASCII clock digits (HH:MM) with countdown directly below, centered as a unit.
-fn draw_clock_with_countdown(frame: &mut Frame, area: Rect, app: &App) {
+fn draw_clock_with_countdown(frame: &mut Frame, area: Rect, app: &mut App) {
     let now = Local::now();
     let time_str = match app.time_format.as_str() {
         "12h" => now.format("%I:%M").to_string(),
@@ -95,7 +95,7 @@ fn draw_clock_with_countdown(frame: &mut Frame, area: Rect, app: &App) {
 }
 
 /// Renders the schedule view showing all 6 prayer times with countdown below.
-fn draw_schedule_with_countdown(frame: &mut Frame, area: Rect, app: &App) {
+fn draw_schedule_with_countdown(frame: &mut Frame, area: Rect, app: &mut App) {
     let now = Local::now();
     let prayers = app.prayer_list();
     let next = app.next_prayer();
