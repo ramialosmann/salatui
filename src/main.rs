@@ -2,6 +2,7 @@ mod app;
 mod cli;
 mod config;
 mod digits;
+mod notification;
 mod prayer;
 mod tui;
 mod ui;
