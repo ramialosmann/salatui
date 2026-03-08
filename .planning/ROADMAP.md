@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Prayer Engine** - Config loading, CLI overrides, and accurate prayer time calculation for any location/method/madhab
 - [ ] **Phase 2: Clock Display** - Big ASCII clock, countdown timer, Hijri date, schedule view, and 1-second TUI event loop
-- [ ] **Phase 3: Notifications** - Desktop notifications, terminal bell, and configurable per-prayer pre-alerts
+- [x] **Phase 3: Notifications** - Desktop notifications, terminal bell, and configurable per-prayer pre-alerts (completed 2026-03-08)
 
 ## Phase Details
 
@@ -58,7 +58,7 @@ Plans:
   2. App triggers terminal bell/flash when a prayer time arrives
   3. User can configure per-prayer pre-alert minutes in config, and receives a notification X minutes before each prayer
   4. Notifications are not duplicated (each prayer triggers at most one notification per day)
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 Plans:
 - [ ] 03-01-PLAN.md — Notification config (NotificationConfig struct, per-prayer pre-alert overrides, default config template) and notification engine (notify-send, bell, dedup tracker, check logic)
@@ -73,4 +73,4 @@ Phases execute in numeric order: 1 -> 2 -> 3
 |-------|----------------|--------|-----------|
 | 1. Prayer Engine | 2/2 | Complete | 2026-03-08 |
 | 2. Clock Display | 1/2 | In Progress|  |
-| 3. Notifications | 1/2 | In Progress|  |
+| 3. Notifications | 2/2 | Complete   | 2026-03-08 |
