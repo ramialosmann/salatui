@@ -9,10 +9,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Prayer Calculation
 
-- [ ] **CALC-01**: App calculates all 6 prayer times (Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha) from lat/lon and date
-- [ ] **CALC-02**: User can select calculation method (MWL, ISNA, Egyptian, Umm al-Qura, Karachi, etc.)
-- [ ] **CALC-03**: User can select Asr madhab (Shafi or Hanafi)
-- [ ] **CALC-04**: App handles high-latitude locations safely with fallback methods (no NaN/panic)
+- [x] **CALC-01**: App calculates all 6 prayer times (Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha) from lat/lon and date
+- [x] **CALC-02**: User can select calculation method (MWL, ISNA, Egyptian, Umm al-Qura, Karachi, etc.)
+- [x] **CALC-03**: User can select Asr madhab (Shafi or Hanafi)
+- [x] **CALC-04**: App handles high-latitude locations safely with fallback methods (no NaN/panic)
 
 ### Display
 
@@ -66,10 +66,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CALC-01 | Phase 1 | Pending |
-| CALC-02 | Phase 1 | Pending |
-| CALC-03 | Phase 1 | Pending |
-| CALC-04 | Phase 1 | Pending |
+| CALC-01 | Phase 1 | Complete |
+| CALC-02 | Phase 1 | Complete |
+| CALC-03 | Phase 1 | Complete |
+| CALC-04 | Phase 1 | Complete |
 | CONF-01 | Phase 1 | Complete |
 | CONF-02 | Phase 1 | Complete |
 | CONF-03 | Phase 1 | Complete |
