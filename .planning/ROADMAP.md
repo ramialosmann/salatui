@@ -27,11 +27,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. User can override lat/lon/method via CLI flags and see different prayer times
   3. User can switch between Shafi and Hanafi Asr madhab and see the Asr time change accordingly
   4. App produces valid prayer times for high-latitude locations (e.g., Oslo in June) without crashing or showing NaN
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md — Initialize Rust project, config loading/generation, CLI parsing, config/CLI merging
+- [ ] 01-02-PLAN.md — Prayer calculation wrapper, enum parsing, output formatting, main.rs wiring
 
 ### Phase 2: Clock Display
 **Goal**: User sees a persistent, beautiful terminal clock with prayer countdown and schedule
@@ -70,6 +70,6 @@ Phases execute in numeric order: 1 -> 2 -> 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Prayer Engine | 0/? | Not started | - |
+| 1. Prayer Engine | 0/2 | Planning complete | - |
 | 2. Clock Display | 0/? | Not started | - |
 | 3. Notifications | 0/? | Not started | - |
