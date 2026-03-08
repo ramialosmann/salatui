@@ -218,6 +218,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
 
 [[package]]
+name = "hijri_date"
+version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a387bb0f0c8bccc06d768492222305ba72d64cbd0f5e9828afb07d4b05235602"
+dependencies = [
+ "chrono",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "iana-time-zone"
 version = "0.1.65"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -488,6 +498,7 @@ dependencies = [
  "chrono",
  "clap",
  "dirs",
+ "hijri_date",
  "salah",
  "serde",
  "toml",
