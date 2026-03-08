@@ -91,6 +91,12 @@ None yet.
 - salah midnight rollover behavior unverified -- may need workaround in prayer.rs
 - hijri_date crate accuracy unvalidated against official Umm al-Qura calendar
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 1 | Create README for publish | 2026-03-08 | 7dce516 | [1-create-a-readme-for-the-project-preparin](./quick/1-create-a-readme-for-the-project-preparin/) |
+
 ## Session Continuity
 
 Last session: 2026-03-08T23:28:59Z
