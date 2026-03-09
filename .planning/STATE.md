@@ -5,7 +5,7 @@ milestone_name: milestone
 status: completed
 stopped_at: Completed 03-02-PLAN.md -- All plans complete
 last_updated: "2026-03-08T23:25:05.728Z"
-last_activity: 2026-03-09 -- Completed quick-01 (README)
+last_activity: 2026-03-09 -- Completed quick-02 (pre-alert bell + schedule alignment)
 progress:
   total_phases: 3
   completed_phases: 3
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-03-08)
 Phase: 3 of 3 (Notifications)
 Plan: 2 of 2 in current phase (2 complete)
 Status: Complete
-Last activity: 2026-03-09 -- Completed quick-01 (README)
+Last activity: 2026-03-09 -- Completed quick-02 (pre-alert bell + schedule alignment)
 
 Progress: [██████████] 100%
 
@@ -57,6 +57,7 @@ Progress: [██████████] 100%
 | Phase 03-notifications P01 | 2min | 2 tasks | 3 files |
 | Phase 03-notifications P02 | 4min | 2 tasks | 3 files |
 | Quick task 01 (README)     | 1min | 1 task  | 1 file  |
+| Quick task 02 (bell+align) | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -80,6 +81,7 @@ Recent decisions affecting current work:
 - [Phase 03-notifications]: At-time detection window is 60 seconds
 - [Phase 03-notifications]: Notification checks run inside App::tick() not tui.rs event loop
 - [Phase 03-notifications]: draw functions accept &mut App for prayer_time_message clearing
+- [Quick-02]: Layout-based horizontal centering (Fill/Length/Fill) for schedule view alignment
 
 ### Pending Todos
 
@@ -96,9 +98,10 @@ None yet.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 1 | Create README for publish | 2026-03-08 | 7dce516 | [1-create-a-readme-for-the-project-preparin](./quick/1-create-a-readme-for-the-project-preparin/) |
+| 2 | Fix pre-alert bell + schedule alignment | 2026-03-09 | 883d683 | [2-fix-pre-alert-notification-bug-and-sched](./quick/2-fix-pre-alert-notification-bug-and-sched/) |
 
 ## Session Continuity
 
-Last session: 2026-03-08T23:28:59Z
-Stopped at: Completed quick-01 (README)
-Resume file: .planning/quick/1-create-a-readme-for-the-project-preparin/1-SUMMARY.md
+Last session: 2026-03-09T19:03:54Z
+Stopped at: Completed quick-02 (pre-alert bell + schedule alignment)
+Resume file: .planning/quick/2-fix-pre-alert-notification-bug-and-sched/2-SUMMARY.md
