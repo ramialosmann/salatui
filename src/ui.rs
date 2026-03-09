@@ -105,9 +105,21 @@ fn draw_schedule_with_countdown(frame: &mut Frame, area: Rect, app: &mut App) {
         _ => "%H:%M",
     };
 
+    // Build prayer lines with fixed-width formatting
     let mut lines: Vec<Line> = Vec::new();
-    lines.push(Line::from("Today's Prayer Times").alignment(Alignment::Center));
-    lines.push(Line::from("──────────────────────").alignment(Alignment::Center));
+
+    // Calculate content width: marker(2) + name(10) + space(1) + time(~8) = ~21 chars
+    // Use a generous fixed width so title and separator center nicely within the block
+    let content_width: u16 = 30;
+
+    // Center title and separator within the fixed-width block
+    let title = "Today's Prayer Times";
+    let title_pad = (content_width as usize).saturating_sub(title.len()) / 2;
+    lines.push(Line::from(format!("{:>width$}{}", "", title, width = title_pad)));
+
+    let sep = "──────────────────────";
+    let sep_pad = (content_width as usize).saturating_sub(sep.len()) / 2;
+    lines.push(Line::from(format!("{:>width$}{}", "", sep, width = sep_pad)));
 
     for (name, time) in &prayers {
         let time_str = time.format(fmt).to_string();
@@ -126,12 +138,14 @@ fn draw_schedule_with_countdown(frame: &mut Frame, area: Rect, app: &mut App) {
         ));
     }
 
-    // Add blank line + countdown
+    // Add blank line + countdown (countdown centered within the block)
     lines.push(Line::from(""));
-    lines.push(Line::from(app.format_countdown()).alignment(Alignment::Center));
+    let countdown_text = app.format_countdown();
+    let cd_pad = (content_width as usize).saturating_sub(countdown_text.len()) / 2;
+    lines.push(Line::from(format!("{:>width$}{}", "", countdown_text, width = cd_pad)));
 
     let content_height = lines.len() as u16;
-    let paragraph = Paragraph::new(lines).alignment(Alignment::Center);
+    let paragraph = Paragraph::new(lines);
 
     // Center vertically
     let vertical = Layout::vertical([
@@ -141,5 +155,13 @@ fn draw_schedule_with_countdown(frame: &mut Frame, area: Rect, app: &mut App) {
     ])
     .split(area);
 
-    frame.render_widget(paragraph, vertical[1]);
+    // Center horizontally using Layout with Fill/Length/Fill
+    let horizontal = Layout::horizontal([
+        Constraint::Fill(1),
+        Constraint::Length(content_width),
+        Constraint::Fill(1),
+    ])
+    .split(vertical[1]);
+
+    frame.render_widget(paragraph, horizontal[1]);
 }
