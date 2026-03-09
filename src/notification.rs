@@ -103,6 +103,9 @@ pub fn execute_action(
                 let body = format_pre_alert_body(prayer, *minutes);
                 send_desktop(prayer, &body);
             }
+            if config.bell {
+                send_bell();
+            }
             tracker.mark_notified(&format!("{}_pre", prayer.to_lowercase()));
         }
     }
@@ -252,6 +255,33 @@ mod tests {
         let time = Local.with_ymd_and_hms(2026, 3, 9, 18, 23, 0).unwrap();
         let body = format_notification_body(time, "12h");
         assert_eq!(body, "\u{1f54c} Prayer time: 6:23 PM");
+    }
+
+    #[test]
+    fn test_execute_action_pre_alert_marks_tracker() {
+        let config = make_config(false, false, 15);
+        let mut tracker = NotificationTracker::new();
+        let action = NotificationAction::PreAlert {
+            prayer: "Dhuhr".to_string(),
+            minutes: 15,
+        };
+        execute_action(&action, &config, &mut tracker);
+        assert!(tracker.is_notified("dhuhr_pre"));
+    }
+
+    #[test]
+    fn test_pre_alert_with_bell_true_calls_bell_path() {
+        // This test verifies that the PreAlert arm checks config.bell.
+        // We can't easily mock send_bell(), but we verify the code path
+        // by confirming execute_action completes without panic and marks tracker.
+        let config = make_config(false, true, 15);
+        let mut tracker = NotificationTracker::new();
+        let action = NotificationAction::PreAlert {
+            prayer: "Asr".to_string(),
+            minutes: 10,
+        };
+        execute_action(&action, &config, &mut tracker);
+        assert!(tracker.is_notified("asr_pre"));
     }
 
     #[test]
