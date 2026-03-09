@@ -1,13 +1,6 @@
-# tui-adhan
+# salatui
 
 Islamic prayer times TUI clock for the terminal.
-
-<!-- TODO: Add badges once published -->
-<!-- [![Crates.io](https://img.shields.io/crates/v/tui-adhan)](https://crates.io/crates/tui-adhan) -->
-<!-- [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) -->
-
-<!-- screenshot: add terminal screenshot here before publishing -->
-![tui-adhan screenshot](screenshot.png)
 
 ## Features
 
@@ -26,21 +19,27 @@ Islamic prayer times TUI clock for the terminal.
 
 ## Installation
 
+### Arch Linux (AUR)
+
+```sh
+yay -S salatui-git
+```
+
 ### From crates.io
 
 ```sh
-cargo install tui-adhan
+cargo install salatui
 ```
 
 ### From source
 
 ```sh
-git clone https://github.com/your-username/tui-adhan.git
-cd tui-adhan
+git clone https://github.com/ramialosmann/salatui.git
+cd salatui
 cargo build --release
 ```
 
-The binary will be at `target/release/tui-adhan`.
+The binary will be at `target/release/salatui`.
 
 ### Requirements
 
@@ -53,19 +52,19 @@ The binary will be at `target/release/tui-adhan`.
 Run with your config file (see Configuration below):
 
 ```sh
-tui-adhan
+salatui
 ```
 
 Override location via CLI:
 
 ```sh
-tui-adhan --lat 21.4225 --lon 39.8262
+salatui --lat 21.4225 --lon 39.8262
 ```
 
 Override location, method, and madhab:
 
 ```sh
-tui-adhan --lat 21.4225 --lon 39.8262 --method umm_al_qura --madhab hanafi
+salatui --lat 21.4225 --lon 39.8262 --method umm_al_qura --madhab hanafi
 ```
 
 Latitude and longitude are required -- either set them in your config file or pass them via `--lat` and `--lon`.
@@ -84,7 +83,7 @@ Latitude and longitude are required -- either set them in your config file or pa
 On first run, a default config file is generated at:
 
 ```
-~/.config/tui-adhan/config.toml
+~/.config/salatui/config.toml
 ```
 
 You must set your latitude and longitude before the app will work. Edit the config file and uncomment the `lat` and `lon` lines, or pass them via CLI flags.
@@ -92,7 +91,7 @@ You must set your latitude and longitude before the app will work. Edit the conf
 ### Default Config
 
 ```toml
-# tui-adhan configuration
+# salatui configuration
 
 [location]
 # Required: Set your latitude and longitude
@@ -170,7 +169,7 @@ pre_alert_minutes = 15
 
 ## Dependencies
 
-tui-adhan is built on:
+salatui is built on:
 
 - [salah](https://crates.io/crates/salah) -- prayer time calculation
 - [ratatui](https://crates.io/crates/ratatui) -- terminal user interface
@@ -180,4 +179,4 @@ tui-adhan is built on:
 
 ## License
 
-TBD
+GPL-3.0
