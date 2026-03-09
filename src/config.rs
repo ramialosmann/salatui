@@ -129,16 +129,16 @@ fn default_time_format() -> String {
     "24h".to_string()
 }
 
-/// Returns the path to the config file: ~/.config/tui-adhan/config.toml
+/// Returns the path to the config file: ~/.config/salatui/config.toml
 pub fn config_path() -> anyhow::Result<PathBuf> {
     let config_dir =
         dirs::config_dir().ok_or_else(|| anyhow::anyhow!("Could not determine config directory"))?;
-    Ok(config_dir.join("tui-adhan").join("config.toml"))
+    Ok(config_dir.join("salatui").join("config.toml"))
 }
 
 /// Generates a default config file with helpful comments at the given path.
 pub fn generate_default_config(path: &Path) -> anyhow::Result<()> {
-    let default_content = r#"# tui-adhan configuration
+    let default_content = r#"# salatui configuration
 
 [location]
 # Required: Set your latitude and longitude
@@ -364,7 +364,7 @@ fajr = 20
 
     #[test]
     fn test_default_config_contains_notifications_section() {
-        let dir = std::env::temp_dir().join("tui-adhan-test-notif");
+        let dir = std::env::temp_dir().join("salatui-test-notif");
         let path = dir.join("config.toml");
         generate_default_config(&path).unwrap();
         let content = std::fs::read_to_string(&path).unwrap();

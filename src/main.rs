@@ -25,9 +25,9 @@ fn main() -> anyhow::Result<()> {
                 "Set them in your config file: {}",
                 config_path()
                     .map(|p| p.display().to_string())
-                    .unwrap_or_else(|_| "~/.config/tui-adhan/config.toml".to_string())
+                    .unwrap_or_else(|_| "~/.config/salatui/config.toml".to_string())
             );
-            eprintln!("Or use: tui-adhan --lat <LATITUDE> --lon <LONGITUDE>");
+            eprintln!("Or use: salatui --lat <LATITUDE> --lon <LONGITUDE>");
             std::process::exit(1);
         }
     };

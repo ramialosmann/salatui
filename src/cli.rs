@@ -1,7 +1,7 @@
 use clap::Parser;
 
 #[derive(Parser, Debug)]
-#[command(name = "tui-adhan", about = "Islamic prayer times in your terminal")]
+#[command(name = "salatui", about = "Islamic prayer times in your terminal")]
 pub struct Cli {
     /// Latitude (overrides config)
     #[arg(long)]

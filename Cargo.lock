@@ -1301,6 +1301,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "salatui"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap",
+ "dirs",
+ "hijri_date",
+ "ratatui",
+ "salah",
+ "serde",
+ "toml",
+]
+
+[[package]]
 name = "scopeguard"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1641,21 +1656,6 @@ name = "toml_writer"
 version = "1.0.6+spec-1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ab16f14aed21ee8bfd8ec22513f7287cd4a91aa92e44edfe2c17ddd004e92607"
-
-[[package]]
-name = "tui-adhan"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "chrono",
- "clap",
- "dirs",
- "hijri_date",
- "ratatui",
- "salah",
- "serde",
- "toml",
-]
 
 [[package]]
 name = "typenum"
